@@ -42,13 +42,13 @@ before_script:
   - android-wait-for-emulator
 
   # Unlock the screen
-  # - adb shell input keyevent 82 &
+  - adb shell input keyevent 82 &
 
   # Clear and capture logcat
   - adb logcat -c
   # Log all "worldwind" messages Info level messages
-  #- adb logcat worldwind:I Explorer:W *:S
-  - adb logcat *:W &
+  - adb logcat worldwind:I *:E
+  #- adb logcat *:W &
   #- adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
