@@ -1,24 +1,32 @@
+# Sets up to run the Android build script per the Travis CI documentation.
+# Executes the script ./gradlew build connectedCheck, unless overridden by
+# script test command, e.g., script: ./gradlew connectedAndroidTest
 language: android
+
+# Configure the build to use Oracle JDK 8, which is required to compile for Android API 24 and newer
+jdk:
+  - oraclejdk8
+
+# Install Android SDK components
 android:
   components:
-    # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
+    # Use the latest revision of Android SDK Tools
+    - platform-tools
+    - tools
 
     # The BuildTools version used by your project
-    - build-tools-19.1.0
+    - build-tools-24.0.1
 
     # The SDK version used to compile your project
-    - android-22
+    - android-24
 
     # Additional components
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-19
+    - addon-google_apis-google-24
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-22
-    - sys-img-x86-android-17
+    - sys-img-armeabi-v7a-android-24
+    #- sys-img-x86-android-17
