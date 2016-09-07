@@ -3,6 +3,9 @@
 # script test command, e.g., script: ./gradlew connectedAndroidTest
 language: android
 
+# sudo required for needed to install the e text-based web browser for displaying .html logs
+sudo: required
+
 # Configure the build to use Oracle JDK 8, which is required to compile for Android API 24 and newer
 jdk:
   - oraclejdk8
@@ -29,30 +32,43 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-24
+  #   - sys-img-armeabi-v7a-android-24
     #- sys-img-x86-android-17
 
 before_script:
   # Create and start emulator
-  - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
+  # - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
+  # - emulator -avd test -no-skin -no-audio -no-window &
+  # - android-wait-for-emulator
 
   # Unlock the screen
-  - adb shell input keyevent 82 &
+  # - adb shell input keyevent 82 &
 
   # Clear and capture logcat
   - adb logcat -c
-  - adb logcat > $HOME/logcat.log &
+  # - adb logcat > $HOME/logcat.log &
+  - adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
 # Overiding the default test command script to get more output
 script: ./gradlew connectedCheck --info
 
+
+#after_failure:
+
 after_script:
+  # - echo 'FAILURE'
+  # Check apt configuration: http://docs.travis-ci.com/user/ci-environment/#apt-configuration
+  # Comment out the lines below to show log about tests with app name customized on exports section.
+  - sudo apt-get install -qq lynx
+  - export MOD_NAME=emxsys/android-worldwind-explorer
+  - export LOG_DIR=${TRAVIS_BUILD_DIR}/${MOD_NAME}/build/outputs/reports/androidTests/connected/
+  - lynx --dump ${LOG_DIR}com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
+  - lynx --dump ${LOG_DIR}com.android.builder.testing.html > myTesting.log
+  - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
   # Append the emulator's logcat to the output
-  - echo 'LOGCAT'
-  - cat $HOME/logcat.log &
+  # - echo 'LOGCAT'
+  # - cat $HOME/logcat.log &
 
 before_cache:
   # Use the caching configuration per the Travis CI documentation
