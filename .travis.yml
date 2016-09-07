@@ -37,17 +37,19 @@ android:
 
 before_script:
   # Create and start emulator
-  # - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
-  # - emulator -avd test -no-skin -no-audio -no-window &
-  # - android-wait-for-emulator
+  - echo no | android create avd --force -n test -t android-24 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
 
   # Unlock the screen
   # - adb shell input keyevent 82 &
 
   # Clear and capture logcat
   - adb logcat -c
-  # - adb logcat > $HOME/logcat.log &
-  - adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
+  # Log all "worldwind" messages Info level messages
+  #- adb logcat worldwind:I Explorer:W *:S
+  - adb logcat *:W &
+  #- adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
 # Overiding the default test command script to get more output
