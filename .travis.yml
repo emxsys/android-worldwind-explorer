@@ -45,9 +45,9 @@ before_script:
   - adb shell input keyevent 82 &
 
   # Clear and capture logcat
-  - adb logcat -c
+  - adb logcat -c &
   # Log all "explorer" Verbose level messages and all other Fatal level messages
-  - adb logcat explorer:V *:F
+  - adb logcat explorer:V *:F &
   #- adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
@@ -60,12 +60,13 @@ script: ./gradlew connectedCheck --info
 after_script:
   # - echo 'FAILURE'
   # Check apt configuration: http://docs.travis-ci.com/user/ci-environment/#apt-configuration
-  # Comment out the lines below to show log about tests with app name customized on exports section.
+  # Use the lynx text-based browser to convert .html files to .log files
   - sudo apt-get install -qq lynx
   - export MOD_NAME=emxsys/android-worldwind-explorer
   - export LOG_DIR=${TRAVIS_BUILD_DIR}/${MOD_NAME}/build/outputs/reports/androidTests/connected/
   - lynx --dump ${LOG_DIR}com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
   - lynx --dump ${LOG_DIR}com.android.builder.testing.html > myTesting.log
+  # Concatenate the html->log files to the output
   - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
 
 before_cache:
