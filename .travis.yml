@@ -46,8 +46,7 @@ before_script:
 
   # Clear and capture logcat
   - adb logcat -c &
-  # Log all "explorer" Verbose level messages and all other Fatal level messages
-  - adb logcat explorer:V *:F > myLogCat.log &
+  - adb logcat > myLogCat.log &
   #- adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
@@ -63,7 +62,7 @@ after_script:
   # Use the lynx text-based browser to convert .html files to .log files
   - sudo apt-get install -qq lynx
   - export MOD_NAME=emxsys/android-worldwind-explorer
-  - export LOG_DIR=${TRAVIS_BUILD_DIR}/${MOD_NAME}/build/outputs/reports/androidTests/connected/
+  - export LOG_DIR=${TRAVIS_BUILD_DIR}/build/outputs/reports/androidTests/connected/
   - lynx --dump ${LOG_DIR}com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
   - lynx --dump ${LOG_DIR}com.android.builder.testing.html > myTesting.log
   # Concatenate the html->log files to the output
