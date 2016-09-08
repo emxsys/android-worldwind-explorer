@@ -47,7 +47,7 @@ before_script:
   # Clear and capture logcat
   - adb logcat -c &
   # Log all "explorer" Verbose level messages and all other Fatal level messages
-  - adb logcat explorer:V *:F &
+  - adb logcat explorer:V *:F
   #- adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
