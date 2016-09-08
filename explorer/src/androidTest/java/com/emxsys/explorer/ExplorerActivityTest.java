@@ -56,6 +56,6 @@ public class ExplorerActivityTest {
     @Test
     public void shouldBeAbleToCreateGlobe() {
         onView(withId(R.id.explorer_text)).check(ViewAssertions.matches(isDisplayed()));
-        }
+    }
 
- }
+}

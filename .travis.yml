@@ -46,9 +46,8 @@ before_script:
 
   # Clear and capture logcat
   - adb logcat -c
-  # Log all "worldwind" messages Info level messages
-  - adb logcat worldwind:I *:E
-  #- adb logcat *:W &
+  # Log all "explorer" Verbose level messages and all other Fatal level messages
+  - adb logcat explorer:V *:F
   #- adb -e logcat *:W | tee logcat.log > /dev/null 2>&1 &
 
 
@@ -68,9 +67,6 @@ after_script:
   - lynx --dump ${LOG_DIR}com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
   - lynx --dump ${LOG_DIR}com.android.builder.testing.html > myTesting.log
   - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
-  # Append the emulator's logcat to the output
-  # - echo 'LOGCAT'
-  # - cat $HOME/logcat.log &
 
 before_cache:
   # Use the caching configuration per the Travis CI documentation
