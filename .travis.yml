@@ -3,7 +3,7 @@
 # script test command, e.g., script: ./gradlew connectedAndroidTest
 language: android
 
-# sudo required for needed to install the e text-based web browser for displaying .html logs
+# sudo required is used to install the lynx text-based web browser for dump .html to logs
 sudo: required
 
 # Configure the build to use Oracle JDK 8, which is required to compile for Android API 24 and newer
@@ -63,6 +63,7 @@ after_script:
   - sudo apt-get install -qq lynx
   - export MOD_NAME=emxsys/android-worldwind-explorer
   - export LOG_DIR=${TRAVIS_BUILD_DIR}/build/outputs/reports/androidTests/connected/
+  - lynx --dump ${LOG_DIR}index.html > myConnectedDevice.log
   - lynx --dump ${LOG_DIR}com.android.builder.testing.ConnectedDevice.html > myConnectedDevice.log
   - lynx --dump ${LOG_DIR}com.android.builder.testing.html > myTesting.log
   # Concatenate the html->log files to the output
