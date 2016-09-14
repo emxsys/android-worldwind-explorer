@@ -45,7 +45,7 @@ android {
         // if true, show all locations for an error, do not truncate lists, etc.
         showAll true
         // Fallback lint configuration (default severities, etc.)
-        lintConfig file("default-lint.xml")
+        //lintConfig file("default-lint.xml")
         // if true, generate a text report of issues (false by default)
         textReport true
         // location to write the output; can be a file or 'stdout'
@@ -57,7 +57,7 @@ android {
         // if true, generate an HTML report (with issue explanations, sourcecode, etc)
         htmlReport true
         // optional path to report (default will be lint-results.html in the builddir)
-        htmlOutput file("lint-report.html")
+        //htmlOutput file("lint-report.html")
 
         // set to true to have all release builds run lint on issues with severity=fatal
         // and abort the build (controlled by abortOnError above) if fatal issues are found

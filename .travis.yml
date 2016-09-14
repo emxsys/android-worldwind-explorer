@@ -51,7 +51,7 @@ before_script:
 
 
 # Overiding the default test command script to get more output
-script: ./gradlew build connectedCheck --info
+#script: ./gradlew build connectedCheck --info
 
 
 #after_failure:
