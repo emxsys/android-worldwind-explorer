@@ -63,8 +63,9 @@ after_script:
   - sudo apt-get install -qq lynx
   #- export OUTPUT_DIR=${TRAVIS_BUILD_DIR}/build/outputs/
   - export OUTPUT_DIR=file:///home/travis/build/emxsys/android-worldwind-explorer/explorer/build/outputs/
+  - export REPORT_DIR=file:///home/travis/build/emxsys/android-worldwind-explorer/explorer/build/reports/
   - lynx --dump ${OUTPUT_DIR}lint-results-debug.html > myLintDebug.log
-  - lynx --dump ${OUTPUT_DIR}reports/androidTests/connected/index.html > myConnectedDevice.log
+  - lynx --dump ${REPORT_DIR}androidTests/connected/index.html > myConnectedDevice.log
 
   # Concatenate the html->log files to the output
   - for file in *.log; do echo "$file"; echo "====================="; cat "$file"; done || true
